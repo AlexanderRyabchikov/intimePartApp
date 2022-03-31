@@ -31,7 +31,7 @@ class MedicalDataFragment: BaseFragment<
     override fun bindView(view: View) = MedicalDataFragmentBinding.bind(view)
 
     override fun initViews() = with(binding) {
-        testText.setOnClickListener {
+        toolbar.setNavigationOnClickListener {
             viewModel.onBack()
         }
     }
