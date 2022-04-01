@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import org.skender.intime.App
+import org.skender.intime.base.extensions.convertFromActivity
 import org.skender.intime.di.AppComponent
 import org.skender.intime.di.HasComponent
 

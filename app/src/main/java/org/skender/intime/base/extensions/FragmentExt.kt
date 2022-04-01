@@ -1,4 +1,4 @@
-package org.skender.intime.base
+package org.skender.intime.base.extensions
 
 import androidx.fragment.app.Fragment
 
