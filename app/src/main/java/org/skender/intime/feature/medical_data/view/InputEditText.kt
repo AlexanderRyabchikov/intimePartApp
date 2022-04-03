@@ -13,7 +13,7 @@ interface InputEditText {
     var inputListener: ((Long) -> Unit)?
     var oldString: String
     val editText: EditText
-    val suffix: String
+    var suffix: String
 
     fun getValue(): Long {
         val amountText = editText.text
@@ -63,6 +63,12 @@ interface InputEditText {
                 setFormattedText(formattedAmount)
             }
         }
+    }
+
+    fun setNewSuffixToEditText(value: String, oldValue: String) {
+        var text = editText.text.toString()
+        text = text.replace(oldValue, value)
+        setFormattedText(text)
     }
 
     private fun stringFormat(
