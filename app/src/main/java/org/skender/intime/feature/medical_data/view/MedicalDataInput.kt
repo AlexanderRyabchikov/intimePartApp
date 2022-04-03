@@ -28,7 +28,7 @@ class MedicalDataInput @JvmOverloads constructor(
 
     override var maxLength: Int = InputEditText.DEFAULT_MAX_LENGTH
 
-    override var inputListener: ((Long) -> Unit)? = null
+    override var inputListener: ((String, String) -> Unit)? = null
     override var oldString: String = String.EMPTY
     override val editText: EditText = binding.inputField
     override var suffix: String = " cm"

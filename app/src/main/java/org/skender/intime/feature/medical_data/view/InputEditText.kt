@@ -2,6 +2,7 @@ package org.skender.intime.feature.medical_data.view
 
 import android.text.Selection
 import android.widget.EditText
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import org.skender.intime.base.extensions.EMPTY
 import kotlin.math.abs
@@ -10,27 +11,12 @@ import kotlin.math.min
 
 interface InputEditText {
     var maxLength: Int
-    var inputListener: ((Long) -> Unit)?
+    var inputListener: ((String, String) -> Unit)?
     var oldString: String
     val editText: EditText
     var suffix: String
 
-    fun getValue(): Long {
-        val amountText = editText.text
-            .toString()
-            .replace("\\s".toRegex(), "")
-            .replace(',', '.')
-
-        val integer = amountText.substringBeforeLast('.').filter(Char::isDigit)
-        val decimal = amountText.substringAfterLast('.', missingDelimiterValue = String.EMPTY)
-            .filter(Char::isDigit)
-            .take(DECIMAL_PART_SIZE)
-            .padEnd(DECIMAL_PART_SIZE, '0')
-
-        return (integer + decimal).toLong()
-    }
-
-    fun setListener(inputListener: (Long) -> Unit) {
+    fun setListener(inputListener: (String, String) -> Unit) {
         this.inputListener = inputListener
     }
 
@@ -170,7 +156,7 @@ interface InputEditText {
 
         editText.setText(text)
         editText.setSelection(cursorPosition)
-        inputListener?.invoke(getValue())
+        inputListener?.invoke(editText.hint.toString(), text.withoutSuffix())
     }
 
     private fun calculateSelectionPosition(newAmountTextLength: Int): Int {
@@ -183,9 +169,9 @@ interface InputEditText {
         return min(max(0, newCursorPosition), newAmountTextLength)
     }
 
-    private fun String.withSuffix(): String = "$this$suffix"
+    fun String.withSuffix(): String = "$this$suffix"
 
-    private fun String.withoutSuffix(): String {
+    fun String.withoutSuffix(): String {
         return if (this.contains(suffix)) {
             this.replace(suffix, "").trim()
         } else {

@@ -10,9 +10,9 @@ interface InputClearable : InputEditText {
 
     override fun initInputEditText() {
         editText.setOnFocusChangeListener { _, hasFocus ->
-            if (getValue() != 0L) return@setOnFocusChangeListener
+            if (editText.text.toString().isNotBlank()) return@setOnFocusChangeListener
             if (hasFocus) {
-                setDefaultAmountText()
+                setDefaultText()
             } else {
                 forceClearText()
             }
@@ -38,14 +38,14 @@ interface InputClearable : InputEditText {
 
     private fun forceClearText() {
         forceUpdated = true
-        val newAmount = String.EMPTY
-        oldString = newAmount
-        editText.setText(newAmount)
-        editText.setSelection(newAmount.length)
-        inputListener?.invoke(getValue())
+        val newString = String.EMPTY
+        oldString = newString
+        editText.setText(newString)
+        editText.setSelection(newString.length)
+        inputListener?.invoke(editText.hint.toString(), newString.withoutSuffix())
     }
 
-    private fun setDefaultAmountText() {
+    private fun setDefaultText() {
         editText.setText(DEFAULT_VALUE)
     }
 }

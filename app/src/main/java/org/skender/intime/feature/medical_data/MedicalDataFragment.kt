@@ -34,9 +34,38 @@ class MedicalDataFragment: BaseFragment<
         toolbar.setNavigationOnClickListener {
             viewModel.onBack()
         }
+
+        saveData.setOnClickListener {
+            viewModel.onClickSave()
+        }
+
+        heartRate.inputListener = ::callbackEditText
+        sleepTime.inputListener = ::callbackEditText
+        bloodPressure.inputListener = ::callbackEditText
+        bodyMassIndex.inputListener = ::callbackEditText
+        mainRiskLevel.inputListener = ::callbackEditText
+        weight.inputListener = ::callbackEditText
+        cholesterol.inputListener = ::callbackEditText
+        glucose.inputListener = ::callbackEditText
     }
 
     override fun renderState(state: MedicalDataViewState) {
+        when(state) {
+            is MedicalDataViewState.Loading -> {
 
+            }
+
+            is MedicalDataViewState.Content -> {
+
+            }
+
+            is MedicalDataViewState.Error -> {
+
+            }
+        }
+    }
+
+    private fun callbackEditText(name: String, value: String) {
+        viewModel.onInputData(name, value)
     }
 }
