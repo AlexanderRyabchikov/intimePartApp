@@ -16,9 +16,10 @@ import org.skender.intime.di.HasComponent
 abstract class BaseFragment<
         SpecificBinding : ViewBinding, VM : BaseViewModel<out ViewState, out ContentViewState>,
         State : ViewState>() : Fragment(),
-    ViewStateDispatcher<State> {
+    ViewStateDispatcher<State>, ProgressDialogDispatcher {
 
     abstract val viewModel: VM
+    override val propagateModalProgressBackPress = false
 
     private var _binding: SpecificBinding? = null
 

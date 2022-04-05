@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/background_save_data.xml" value="0.1335" />
         <entry key="app/src/main/res/drawable/underline_state.xml" value="0.1905" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/layout/dialog_progress.xml" value="0.225" />
         <entry key="app/src/main/res/layout/input_medical_data_view.xml" value="0.25125325520833336" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/medical_data_fragment.xml" value="0.22708333333333333" />

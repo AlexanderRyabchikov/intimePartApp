@@ -44,10 +44,10 @@ class MedicalDataInput @JvmOverloads constructor(
             binding.inputField.hint = value
         }
 
-    var text: String = String.EMPTY
+    var text: Any = String.EMPTY
         set(value) {
             field = value
-            binding.inputField.setText(value)
+            binding.inputField.setText(field.toString())
         }
 
     var menuItems: List<String> = emptyList()
