@@ -1,7 +1,6 @@
 package org.skender.intime.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,34 +11,15 @@ import org.skender.intime.App
 import org.skender.intime.base.extensions.convertFromActivity
 import org.skender.intime.di.AppComponent
 import org.skender.intime.di.HasComponent
+import timber.log.Timber
 
 abstract class BaseFragment<
-        SpecificBinding : ViewBinding, VM : BaseViewModel<out ViewState, out ContentViewState>,
-        State : ViewState>() : Fragment(),
-    ViewStateDispatcher<State>, ProgressDialogDispatcher {
+        SpecificBinding : ViewBinding, VM : BaseViewModel<out State, out ContentViewState>,
+        State : ViewState> : Fragment(), BaseFragmentInterface<SpecificBinding, VM, State>{
 
-    abstract val viewModel: VM
     override val propagateModalProgressBackPress = false
 
-    private var _binding: SpecificBinding? = null
-
-    val binding get() = _binding!!
-
-    abstract fun bindView(view: View): SpecificBinding
-
-    private fun viewCreated(
-        view: View
-    ) {
-        _binding = bindView(view)
-        initViews()
-    }
-
-    fun destroyView() {
-        _binding = null
-    }
-
-    @Suppress("OptionalUnit")
-    open fun initViews() = Unit
+    override var _binding: SpecificBinding? = null
 
     @get: LayoutRes
     protected abstract val  layoutRes: Int
@@ -60,7 +40,7 @@ abstract class BaseFragment<
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getAppComponent().inject(this)
-        viewCreated(view)
+        viewCreated(view, viewLifecycleOwner, viewLifecycleOwner.lifecycleScope)
     }
 
     override fun onDestroyView() {
@@ -76,7 +56,7 @@ abstract class BaseFragment<
     }
 
     protected open fun injectDependencies() {
-        Log.d(javaClass.name, "no base implementation for dependencies injection")
+        Timber.d("no base implementation for dependencies injection")
     }
 
 }

@@ -11,7 +11,7 @@ class MedicalDataInteractor @Inject constructor(private val medicalDataRepositor
         return medicalDataRepository.onLoadData()
     }
 
-    suspend fun onSaveData(data: MedicalData) {
+    suspend fun onSaveData(data: List<MedicalData>) {
         medicalDataRepository.onSaveData(data)
     }
 

@@ -9,6 +9,7 @@ import org.skender.intime.base.assistedViewModel
 import org.skender.intime.databinding.MedicalDataFragmentBinding
 import org.skender.intime.di.MainComponent
 import org.skender.intime.feature.medical_data.domain.data.MedicalDataInfo
+import org.skender.intime.feature.medical_data.MedicalDataViewState.*
 import javax.inject.Inject
 
 class MedicalDataFragment: BaseFragment<
@@ -53,20 +54,20 @@ class MedicalDataFragment: BaseFragment<
 
     override fun renderState(state: MedicalDataViewState) {
         when(state) {
-            is MedicalDataViewState.Loading -> {
+            is Loading -> {
                 hideContent()
                 hideError()
                 showModalProgress()
             }
 
-            is MedicalDataViewState.Content -> {
+            is Content -> {
                 hideModalProgress()
                 hideError()
                 showContent()
                 renderData(state)
             }
 
-            is MedicalDataViewState.Error -> {
+            is Error -> {
                 showError()
                 hideModalProgress()
                 hideContent()
@@ -74,7 +75,7 @@ class MedicalDataFragment: BaseFragment<
         }
     }
 
-    private fun renderData(render: MedicalDataViewState.Content) {
+    private fun renderData(render: Content) {
         renderHeartRate(render.heartRate)
         renderSleepTime(render.sleepTime)
         renderBloodPressure(render.bloodPressure)

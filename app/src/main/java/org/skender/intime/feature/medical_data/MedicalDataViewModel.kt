@@ -33,8 +33,8 @@ class MedicalDataViewModel @AssistedInject constructor(
                 interactor
                     .onLoadData()
                     .run {
+                        var content = MedicalDataViewState.Content()
                         if (isNotEmpty()) {
-                            var content = MedicalDataViewState.Content()
                             forEach { item ->
                                 when(item.type) {
                                     TypeMedicalData.HEART_RATE -> {
@@ -80,8 +80,8 @@ class MedicalDataViewModel @AssistedInject constructor(
                                     }
                                 }
                             }
-                            updateState(content)
                         }
+                        updateState(content)
                     }
             } catch (e: Exception) {
                 Timber.e(e)
@@ -95,7 +95,14 @@ class MedicalDataViewModel @AssistedInject constructor(
     }
 
     fun onClickSave() {
-        //TODO save data
+        viewModelScope.launch {
+            try {
+                interactor.onSaveData(saveDataList)
+            } catch (e: Exception) {
+                Timber.e(e)
+                updateState(MedicalDataViewState.Error(e))
+            }
+        }
     }
 
     fun onInputData(name: String, value: String) {

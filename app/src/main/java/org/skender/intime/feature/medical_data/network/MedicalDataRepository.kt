@@ -11,7 +11,7 @@ class MedicalDataRepository @Inject constructor(api: ApiInterface) {
         return emptyList()
     }
 
-    suspend fun onSaveData(data: MedicalData) {
+    suspend fun onSaveData(data: List<MedicalData>) {
         //TODO add api for save data. Prepare data for save to somewhere
     }
 }
