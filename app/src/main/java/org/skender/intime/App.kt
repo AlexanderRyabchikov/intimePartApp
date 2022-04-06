@@ -20,7 +20,7 @@ class App : Application() {
     private fun initComponents() {
         appComponent = DaggerAppComponent.builder()
             .appModule(AppModule(this))
-            .apiModule(ApiModule(""))
+            .apiModule(ApiModule("https://github.com/")) //Test data
             .build()
     }
 
